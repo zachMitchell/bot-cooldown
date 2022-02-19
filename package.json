@@ -1,6 +1,6 @@
 {
   "name": "bot-cooldown",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "author": "Zachary Mitchell <biz@zdmitchell.com> (http://zdmitchell.com)",
   "description": "Provides a cooldown system for discord bot commands, or any other stateful application",
   "main": "cooldown.js",
