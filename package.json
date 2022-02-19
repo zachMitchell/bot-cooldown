@@ -4,6 +4,7 @@
   "author": "Zachary Mitchell <biz@zdmitchell.com> (http://zdmitchell.com)",
   "description": "Provides a cooldown system for discord bot commands, or any other stateful application",
   "main": "cooldown.js",
+  "homepage":"https://github.com/zachMitchell/bot-cooldown",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
