@@ -55,18 +55,30 @@ const commandCooldowns = {
 
 ### Create a new guildGroup and assign a guild to your configuration
 
+This module was designed to keep track of cooldowns per-guild. With that in mind, we create something called a `guildGroup`, that holds the configurations of many guilds at once.
+
+You can then use this to your advantage by having restrictions for one guild, but something else for another. (e.g: the admin of a target server wishes to increase/decrease the amount of uses for a command)
+
 ```js
 var fancyNewGuildGroup = new cooldown.guildGroup();
 
 //You need a guild ID as the first parameter and your configuration as the second
-var guildConfiguration = fancyNewGuildGroup.createConfig('1234567890', commandCooldowns);
+var guildConfiguration = fancyNewGuildGroup.createConfig('1234567890', commandCooldowns),
+    anotherGuildConfig = fancyNewGuildGroup.createConfig('7777777777', someOtherCooldownConfig);
 ```
+
+If you don't need this complexity, it might make more sense to just to create one configuration that has one universal restrication.
+
+```js
+var aUniversalConfig = fancyNewGuildGroup.createConfig('the key can be whatever you want at this point', commandCooldowns);
+```
+This setup gives every server the same cooldown settings. It also prevents a type of attack where users spam one server, and then spam another because the configurations are different.
 
 ### Record the usage of your command
 
 ```js
 //From left to right: command name, user's id, unix time number (current time)
-var commandStatus = fancyNewGuildGroup['1234567890'].updateUsage('keyboardcat', '0987654321', (new Date()).getTime());
+var commandStatus = fancyNewGuildGroup['1234567890'].updateUsage('keyboardcat', '0987654321', discordInteractionOrMessage.createdTimestamp);
 //^ Should come back with {cooldownHit: false, triedAgain: false}
 
 if(commandStatus.blocked){
